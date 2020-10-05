@@ -18,6 +18,9 @@ interface InitProps {
 const ProductView : FC<InitProps> = (props) => {
     const { state : { products }, dispatch } = useContext(AppContext);
     const [show, setShow] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
+    const [editId, setEditId] = useState(0);
+
     const [defaultValues, setDefaultValues] = useState({
         productName: "",
         productDescription: "",
@@ -25,13 +28,25 @@ const ProductView : FC<InitProps> = (props) => {
     })
    
     const handleSubmitFormCreate = (data : any) => {
-        var nextId = products.length + 1;
-        dispatch({
-            type: Types.Add,
-            payload: {id: nextId,
-                ...data
-            }
-        });
+      
+        if (isEdit === true) {
+            dispatch({
+                type: Types.EditProduct,
+                payload: {
+                    id: editId,
+                    ...data
+                }
+            });
+        } else {
+            var nextId = products.length + 1;
+            dispatch({
+                type: Types.AddProduct,
+                payload: {id: nextId,
+                    ...data
+                }
+            });
+        }
+        
         setShow(false);
     }
 
@@ -43,12 +58,13 @@ const ProductView : FC<InitProps> = (props) => {
                 productDescription: "",
                 productPrice: "",
         });
+        setIsEdit(false)
         setShow(true)
     }
     
     const handleDeleteButton = (id: number) => {
         dispatch({
-            type: Types.Delete,
+            type: Types.DeleteProduct,
             payload: {id}
         });
     }
@@ -61,7 +77,8 @@ const ProductView : FC<InitProps> = (props) => {
             productDescription: product?.description || '',
             productPrice: product?.price || '',
         });
-       
+        setEditId(id);
+        setIsEdit(true)
         setShow(true);
     }
 
@@ -94,7 +111,9 @@ const ProductView : FC<InitProps> = (props) => {
                             <tbody>
                                 {
                                     products !== undefined? 
-                                    products.map((item) => {
+                                    products
+                                    .sort(({ id: prevId }, { id: currId }) => prevId - currId)
+                                    .map((item) => {
                                     return(
                                         <tr key={item.id}>
                                             <td>{item.id}</td>

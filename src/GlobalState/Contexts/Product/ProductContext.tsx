@@ -3,9 +3,9 @@ import {  ActionMapping } from '../../AppContext'
 
 
 export enum Types {
-    Add = "ADD_PRODUCT",
-    Delete = "DELETE_PRODUCT",
-    Edit = "EDIT_PRODUCT"
+    AddProduct = "ADD_PRODUCT",
+    DeleteProduct = "DELETE_PRODUCT",
+    EditProduct = "EDIT_PRODUCT"
 }
 
 export type ProductType = {
@@ -17,16 +17,16 @@ export type ProductType = {
 
 
 type ProductPayload = {
-    [Types.Add]: {
+    [Types.AddProduct]: {
         id: number;
         name: string;
         description: string;
         price: string;
         };
-    [Types.Delete]: {
+    [Types.DeleteProduct]: {
         id: number;
     };
-    [Types.Edit]: {
+    [Types.EditProduct]: {
         id: number;
         name?: string;
         description?: string;
