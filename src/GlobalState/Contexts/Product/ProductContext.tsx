@@ -8,7 +8,7 @@ export enum Types {
     Edit = "EDIT_PRODUCT"
 }
 
-type ProductType = {
+export type ProductType = {
   id: number;
   name: string;
   description: string;
@@ -34,9 +34,7 @@ type ProductPayload = {
     };
 };
 
-type ProductActions = ActionMapping<ProductPayload>[keyof ActionMapping<ProductPayload>];
+export type ProductActions = ActionMapping<ProductPayload>[keyof ActionMapping<ProductPayload>];
 
 
-
-export type {ProductType, ProductActions }
 

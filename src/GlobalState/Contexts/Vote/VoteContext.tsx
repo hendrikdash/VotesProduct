@@ -5,7 +5,7 @@ export enum Types {
     UpdateVote = "EDIT_VOTE"
 }
 
-type VoteType = {
+export type VoteType = {
     id: number;
     product_id: number;
     count: number;
@@ -23,8 +23,6 @@ type VotePayload = {
     };
 };
   
-type VoteActions = ActionMapping<VotePayload>[keyof ActionMapping<VotePayload>];
+export type VoteActions = ActionMapping<VotePayload>[keyof ActionMapping<VotePayload>];
 
-
-export type { VoteType, VoteActions }
 
