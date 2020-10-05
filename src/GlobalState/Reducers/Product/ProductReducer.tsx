@@ -1,7 +1,7 @@
-import {Types, ProductType, ProductActions } from '../../Contexts/Product/ProductContext'
+import {Types, TypeProduct, ProductActions } from '../../Contexts/Product/ProductContext'
 import {  VoteActions } from '../../Contexts/Vote/VoteContext'
 export const productReducer = (
-    state: ProductType[],
+    state: TypeProduct[],
     action: ProductActions | VoteActions
 ) => {
     switch (action.type) {

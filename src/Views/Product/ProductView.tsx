@@ -90,7 +90,7 @@ const ProductView : FC<InitProps> = (props) => {
                 title={"Create Product"}
                 onHide={() => setShow(false)}
             >
-                   <ProductForm handleSubmitParent={handleSubmitFormCreate} defaultValues={defaultValues}/>
+                <ProductForm handleSubmitParent={handleSubmitFormCreate} defaultValues={defaultValues}/>
             </ModalComponent>
                 <Container>
                     <Row>

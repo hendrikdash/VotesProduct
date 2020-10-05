@@ -5,7 +5,7 @@ export enum Types {
     UpdateVote = "EDIT_VOTE"
 }
 
-export type VoteType = {
+export type TypeVote = {
     id: number;
     product_id: number;
     count: number;

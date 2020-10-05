@@ -1,28 +1,23 @@
 import React, { createContext, useReducer, Dispatch } from "react";
 
-import {ProductType, ProductActions   } from './Contexts/Product/ProductContext'
+import {TypeProduct, ProductActions   } from './Contexts/Product/ProductContext'
 import {  productReducer } from './Reducers/Product/ProductReducer'
-import { VoteType, VoteActions } from './Contexts/Vote/VoteContext'
+import { TypeVote, VoteActions } from './Contexts/Vote/VoteContext'
 import {  voteReducer } from './Reducers/Vote/VoteReducer'
 
 export type ActionMapping<M extends { [index: string]: any }> = {
-  [Key in keyof M]: M[Key] extends undefined
-    ? {
-        type: Key;
-      }
-    : {
+  [Key in keyof M]: {
         type: Key;
         payload: M[Key];
       }
 };
 
-
-type InitialStateType = {
-  products: ProductType[];
-  votes: VoteType[];
+type StateType = {
+  products: TypeProduct[];
+  votes: TypeVote[];
 };
 
-const initialState = {
+const State = {
   products: [
     {
       id: 1,
@@ -61,30 +56,27 @@ const initialState = {
 };
 
 const AppContext = createContext<{
-  state: InitialStateType;
+  state: StateType;
   dispatch: Dispatch<
-   ProductActions | VoteActions
+    VoteActions | ProductActions 
    >;
 }>({
-  state: initialState,
+  state: State,
   dispatch: () => null
 });
 
 const mainReducer = (
-    { products, votes }: InitialStateType,
-  action: ProductActions | VoteActions
-) => ({
-  products: productReducer(products, action), 
-  votes : voteReducer(votes, action)
-});
+  { products, votes }: StateType,
+  action:  VoteActions | ProductActions
+) => ({products: productReducer(products, action), votes : voteReducer(votes, action)});
 
-const AppProvider: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer(mainReducer, initialState);
-  return (
-    <AppContext.Provider value={{ state, dispatch }}>
-      {children}
-    </AppContext.Provider>
-  );
+  const AppProvider: React.FC = ({ children }) => {
+    const [state, dispatch] = useReducer(mainReducer, State);
+    return (
+      <AppContext.Provider value={{ state, dispatch }}>
+        {children}
+      </AppContext.Provider>
+    );
 };
 
 export { AppProvider, AppContext };

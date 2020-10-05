@@ -8,7 +8,7 @@ export enum Types {
     EditProduct = "EDIT_PRODUCT"
 }
 
-export type ProductType = {
+export type TypeProduct = {
   id: number;
   name: string;
   description: string;
