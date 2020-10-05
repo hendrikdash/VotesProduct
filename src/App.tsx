@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, {FC} from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './Views/layouts/Header';
+import Footer from './Views/layouts/Footer';
+import './asset/style/App.css';
+import { AppProvider} from './GlobalState/AppContext';
+import { BrowserRouter as Router} from 'react-router-dom';
+import RouterView from './RouterView';
+import {Container} from 'react-bootstrap'
+interface InitComponent {
+  component?: object
 }
+const App : FC<InitComponent> = () => {
+  return <>
+          <Router>
+            <AppProvider>
+              <Header />
+                <Container fluid style={{backgroundColor: "#cfd8dc"}}>
+                    <RouterView/>
+                  <Footer />
+                </Container>
+            </AppProvider>
+          </Router>
+        </>
+}
+
+
 
 export default App;
